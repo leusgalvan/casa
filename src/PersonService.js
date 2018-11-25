@@ -1,6 +1,8 @@
-class PersonService {
-  savePerson(personData) {
+import axios from 'axios';
 
+class PersonService {
+  create(personData) {
+    return axios.post('http://localhost:9000/people', personData)
   }
 }
 
