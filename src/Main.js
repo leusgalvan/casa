@@ -20,12 +20,23 @@ class Main extends Component {
         </nav>
         <HashRouter>
           <div className="row">
-            <nav className="col-md-2 navbar-light bg-light sidebar">
-              <ul className="nav flex-column">
-                <li className="nav-link"><NavLink exact to="/">Home</NavLink></li>
-                <li className="nav-link"><NavLink to="/person">Person</NavLink></li>
-                <li className="nav-link"><NavLink to="/spending">Spending</NavLink></li>
-                <li className="nav-link"><NavLink to="/summary">Summary</NavLink></li>
+            <nav className="col-sm-2 navbar-light bg-light sidebar">
+              <ul className="nav nav-pills flex-column">
+                <li className="nav-item">
+                  <NavLink className="nav-link" exact to="/">Home</NavLink>
+                </li>
+
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/person">Person</NavLink>
+                </li>
+
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/spending">Spending</NavLink>
+                </li>
+
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/summary">Summary</NavLink>
+                </li>
               </ul>
             </nav>
             <div className="content col-md">
