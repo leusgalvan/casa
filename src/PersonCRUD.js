@@ -19,6 +19,16 @@ class PersonCRUD extends Component {
     this.handleAddPersonModalSave = this.handleAddPersonModalSave.bind(this);
   }
 
+  componentDidMount() {
+    const _this = this
+    _this.personService.list()
+      .then(function(response) {
+        _this.setState({personData: response});
+      }).catch(function(error) {
+        console.log('Error fetching person data: ' + error);
+      });
+  }
+
   handleAdd() {
     this.setState({adding: true});
   }
@@ -33,7 +43,7 @@ class PersonCRUD extends Component {
       .then(function(response){
         console.log('Person created successfully')
         _this.setState({
-          personData: [..._this.state.personData, Object.values(newPersonData)],
+          personData: [..._this.state.personData, response],
           adding: false
         });
       }).catch(function(error){
@@ -51,7 +61,7 @@ class PersonCRUD extends Component {
 
     return (
       <div className="container">
-        <FormTable columns={['Nombre']}
+        <FormTable columns={['ID', 'Nombre']}
                    data={this.state.personData}
         />
         <Button onClick={this.handleAdd}>Agregar</Button>
