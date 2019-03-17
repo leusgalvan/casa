@@ -1,10 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import Table from 'react-bootstrap/Table';
 import PropTypes from 'prop-types';
 
-const FormTable = ({columnNames, data}) => {
-  const hdr = columnNames.map((col, i) => {
+const FormTable = ({columns, data}) => {
+  const hdr = columns.map((col, i) => {
     return <th key={i}>{col}</th>;
   });
 

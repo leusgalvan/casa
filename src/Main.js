@@ -6,7 +6,7 @@ import {
   NavLink,
   HashRouter
 } from "react-router-dom";
-import PersonForm from './PersonForm';
+import PersonCRUD from './PersonCRUD';
 import Spending from './Spending';
 import Summary from './Summary';
 import Home from './Home';
@@ -41,7 +41,7 @@ class Main extends Component {
             </nav>
             <div className="content col-md">
               <Route exact path="/" component={Home}/>
-              <Route path="/person" component={PersonForm}/>
+              <Route path="/person" component={PersonCRUD}/>
               <Route path="/spending" component={Spending}/>
               <Route path="/summary" component={Summary}/>
             </div>
