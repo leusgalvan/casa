@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal';
-import PersonService from './PersonService';
 
 class AddPersonModal extends Component {
   constructor(props) {

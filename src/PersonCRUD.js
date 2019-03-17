@@ -11,7 +11,7 @@ class PersonCRUD extends Component {
     super(props);
     this.state = {
       adding: false,
-      personData: [['Leus']]
+      personData: []
     };
     this.personService = new PersonService();
     this.handleAdd = this.handleAdd.bind(this);
@@ -27,13 +27,18 @@ class PersonCRUD extends Component {
     this.setState({adding: false});
   }
 
-  // TODO: el set state solo se debe llamar si el create es exitoso
   handleAddPersonModalSave(newPersonData) {
-    this.setState({
-      personData: [...this.state.personData, Object.values(newPersonData)],
-      adding: false
-    });
-    this.personService.create(newPersonData);
+    const _this = this
+    _this.personService.create(newPersonData)
+      .then(function(response){
+        console.log('Person created successfully')
+        _this.setState({
+          personData: [..._this.state.personData, Object.values(newPersonData)],
+          adding: false
+        });
+      }).catch(function(error){
+        console.log('Error creating person: ' + error);
+      });
   }
 
   render() {
