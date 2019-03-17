@@ -11,12 +11,14 @@ class PersonCRUD extends Component {
     super(props);
     this.state = {
       adding: false,
-      personData: []
+      personData: [],
+      selectedRows: []
     };
     this.personService = new PersonService();
     this.handleAdd = this.handleAdd.bind(this);
-    this.handleAddPersonModalClose = this.handleAddPersonModalClose.bind(this);
-    this.handleAddPersonModalSave = this.handleAddPersonModalSave.bind(this);
+    this.handlePersonModalClose = this.handlePersonModalClose.bind(this);
+    this.handlePersonModalSave = this.handlePersonModalSave.bind(this);
+    this.handleRowClicked = this.handleRowClicked.bind(this);
   }
 
   componentDidMount() {
@@ -33,11 +35,11 @@ class PersonCRUD extends Component {
     this.setState({adding: true});
   }
 
-  handleAddPersonModalClose() {
+  handlePersonModalClose() {
     this.setState({adding: false});
   }
 
-  handleAddPersonModalSave(newPersonData) {
+  handlePersonModalSave(newPersonData) {
     const _this = this
     _this.personService.create(newPersonData)
       .then(function(response){
@@ -51,18 +53,30 @@ class PersonCRUD extends Component {
       });
   }
 
+  handleRowClicked(index) {
+    var _selectedRows = this.state.selectedRows;
+    if(_selectedRows.includes(index)){
+      _selectedRows = _selectedRows.filter(i => i !== index);
+    } else {
+      _selectedRows = _selectedRows.concat([index]);
+    }
+    this.setState({selectedRows: _selectedRows});
+  }
+
   render() {
     const addPersonModal =
       <AddPersonModal
         show={true}
-        onClose={this.handleAddPersonModalClose}
-        onSave={this.handleAddPersonModalSave}
+        onClose={this.handlePersonModalClose}
+        onSave={this.handlePersonModalSave}
       />
 
     return (
       <div className="container">
         <FormTable columns={['ID', 'Nombre']}
                    data={this.state.personData}
+                   selectedRows={this.state.selectedRows}
+                   onRowClicked={this.handleRowClicked}
         />
         <Button onClick={this.handleAdd}>Agregar</Button>
         {this.state.adding && addPersonModal}
