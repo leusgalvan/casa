@@ -18,6 +18,14 @@ class PersonService {
         return response.data.map(row => Object.values(row));
       });
   }
+
+  delete(id) {
+    console.log('Deleting person with id: ' + id);
+    return axios.delete('http://localhost:9000/people/' + id)
+      .then(function(response) {
+        return id;
+      });
+  }
 }
 
 export default PersonService;
