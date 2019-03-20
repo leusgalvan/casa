@@ -15,7 +15,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+        <nav className="navbar navbar-expand-sm bg-primary navbar-dark">
           <a className="navbar-brand" href="/">Casa</a>
         </nav>
         <HashRouter>

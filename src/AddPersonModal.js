@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal';
+import PropTypes from 'prop-types';
 
 class AddPersonModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      person: {
-        name: ''
-      }
+      person: props.person
     }
     this.handleNameChange = this.handleNameChange.bind(this);
   }
@@ -20,7 +19,7 @@ class AddPersonModal extends Component {
     return(
       <Modal show={this.props.show} onHide={this.props.onClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear persona</Modal.Title>
+          <Modal.Title>{this.props.title}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -42,6 +41,14 @@ class AddPersonModal extends Component {
       </Modal>
     );
   }
+}
+
+AddPersonModal.defaultProps = {
+  person: {name: ''}
+}
+
+AddPersonModal.propTypes = {
+  person: PropTypes.object
 }
 
 export default AddPersonModal;

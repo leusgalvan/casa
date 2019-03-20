@@ -2,21 +2,16 @@ import axios from 'axios';
 
 class PersonService {
   create(personData) {
-    console.log('Creating person')
+    console.log('Creating person');
+    console.log(personData);
     return axios.post('http://localhost:9000/people', personData)
-      .then(function(response){
-        const idValues = Object.values(response.data);
-        const personValues = Object.values(personData);
-        return idValues.concat(personValues);
-      });
+      .then(response => response.data);
   }
 
   list() {
     console.log('Listing all people')
     return axios.get('http://localhost:9000/people')
-      .then(function(response) {
-        return response.data.map(row => Object.values(row));
-      });
+      .then(response => response.data);
   }
 
   delete(id) {
@@ -25,6 +20,13 @@ class PersonService {
       .then(function(response) {
         return id;
       });
+  }
+
+  update(personData) {
+    console.log('Updating person')
+    console.log(personData);
+    return axios.put('http://localhost:9000/people/' + personData.id, personData)
+      .then(response => response.data);
   }
 }
 
