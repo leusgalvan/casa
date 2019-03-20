@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
 
-class AddPersonModal extends Component {
+class EditPersonModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,12 +43,12 @@ class AddPersonModal extends Component {
   }
 }
 
-AddPersonModal.defaultProps = {
+EditPersonModal.defaultProps = {
   person: {name: ''}
 }
 
-AddPersonModal.propTypes = {
+EditPersonModal.propTypes = {
   person: PropTypes.object
 }
 
-export default AddPersonModal;
+export default EditPersonModal;
