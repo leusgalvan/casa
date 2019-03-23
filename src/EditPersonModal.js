@@ -1,50 +1,39 @@
-import React, { Component } from "react";
+import React from "react";
 import Modal from 'react-bootstrap/Modal';
 import PropTypes from 'prop-types';
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
 
-class EditPersonModal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      person: props.person
-    }
-    this.handleNameChange = this.handleNameChange.bind(this);
+const EditPersonModal = ({show, onClose, title, onSave, person}) => {
+  let inputName
+  const buildPerson = () => {
+    const newPerson = person.id ? {id: person.id} : {}
+    newPerson.name = inputName.value.trim()
+    return newPerson
   }
+  return(
+    <Modal show={show} onHide={onClose} className='edit-modal'>
+      <Modal.Header closeButton>
+        <Modal.Title className='edit-modal-title'>{title}</Modal.Title>
+      </Modal.Header>
 
-  handleNameChange(event) {
-    this.setState({ person: { ...this.state.person, name: event.target.value} });
-  }
-
-  render() {
-    return(
-      <Modal show={this.props.show} onHide={this.props.onClose} className='edit-modal'>
-        <Modal.Header closeButton>
-          <Modal.Title className='edit-modal-title'>{this.props.title}</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body className='edit-modal-body'>
-          <form onSubmit={(e) => this.props.onSave(this.state.person, e)}>
-            <div className="form-group row">
-              <label htmlFor="name" className="col-sm-2 col-form-label">Nombre</label>
-              <div className="col-sm">
-                <input value={this.state.person.name}
-                       onChange={this.handleNameChange}
-                       type="text"
-                       className="form-control"
-                       id="name"
-                       placeholder="Juanita Viale" />
-              </div>
-            </div>
-            <button type="submit"
-                    className="btn btn-primary edit-modal-btn-save mr-3">Guardar</button>
-            <button type="button"
-                    className="btn btn-secondary edit-modal-btn-cancel"
-                    onClick={this.props.onClose}>Cancelar</button>
-          </form>
-        </Modal.Body>
-      </Modal>
-    );
-  }
+      <Modal.Body className='edit-modal-body'>
+        <Form onSubmit={(e) => onSave(buildPerson(), e)}>
+          <Form.Group controlId="name" as={Form.Row}>
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control type="text" placeholder="Juanita Viale" defaultValue={person.name} ref={node => (inputName = node)}/>
+          </Form.Group>
+          <Button variant="primary"
+                  type="submit"
+                  className="edit-modal-btn-save mr-3">Guardar</Button>
+          <Button variant="secondary"
+                  type="button"
+                  className="edit-modal-btn-cancel"
+                  onClick={onClose}>Cancelar</Button>
+        </Form>
+      </Modal.Body>
+    </Modal>
+  );
 }
 
 EditPersonModal.defaultProps = {
@@ -52,7 +41,11 @@ EditPersonModal.defaultProps = {
 }
 
 EditPersonModal.propTypes = {
-  person: PropTypes.object
+  person: PropTypes.object,
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  onSave: PropTypes.func.isRequired
 }
 
 export default EditPersonModal;
