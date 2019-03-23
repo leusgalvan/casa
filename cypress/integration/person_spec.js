@@ -28,5 +28,18 @@ describe('Person page', function () {
     cy.get('.btn-delete').should('contain', 'Eliminar').and('have.attr', 'disabled')
   })
 
-  it("should ")
+  it("should add a person successfully", function () {
+    const personData = {'id': 6, 'name': 'Mamu'}
+    cy.route('POST', '/people', personData)
+
+    cy.get('.btn-add').click()
+    cy.get('.modal-edit').should('be.visible')
+    cy.get('.modal-title').should('contain', 'Crear persona')
+    cy.get("label[for='name']").should('contain', 'Nombre')
+    cy.get('.btn-save').should('contain', 'Guardar')
+    cy.get('#name').type('Mamu')
+    cy.get('.btn-save').click()
+    cy.get('tbody tr:nth-child(6) td:nth-child(1)').should('contain', '6')
+    cy.get('tbody tr:nth-child(6) td:nth-child(2)').should('contain', 'Mamu')
+  })
 })

@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 class PersonCRUD extends Component {
   constructor(props) {
     super(props);
+    console.log('Creating PersonCRUD component')
     this.state = {
       adding: false,
       deleting: false,
@@ -27,7 +28,7 @@ class PersonCRUD extends Component {
     this.exitDeletingMode = this.exitDeletingMode.bind(this);
     this.updatePerson = this.updatePerson.bind(this);
     this.exitUpdatingMode = this.exitUpdatingMode.bind(this);
-    this.selectRow = this.selectRow.bind(this);
+    this.toggleRowSelection = this.toggleRowSelection.bind(this);
   }
 
   componentDidMount() {
@@ -57,8 +58,9 @@ class PersonCRUD extends Component {
     this.setState({adding: false});
   }
 
-  createPerson(personData) {
+  createPerson(personData, e) {
     const _this = this
+    e.preventDefault()
     _this.personService.create(personData)
       .then(function(newPersonData){
         console.log('Person created successfully');
@@ -68,10 +70,11 @@ class PersonCRUD extends Component {
         });
       }).catch(function(error){
         console.log('Error creating person: ' + error);
+        _this.setState({adding: false});
       });
   }
 
-  selectRow(index) {
+  toggleRowSelection(index) {
     var _selectedRows = this.state.selectedRows;
     if(_selectedRows.includes(index)){
       _selectedRows = _selectedRows.filter(i => i !== index);
@@ -163,7 +166,7 @@ class PersonCRUD extends Component {
         <FormTable columns={['ID', 'Nombre']}
                    data={this.arrayOfPeopleAsTableData(this.state.personData)}
                    selectedRows={this.state.selectedRows}
-                   onRowClicked={this.selectRow}
+                   onRowClicked={this.toggleRowSelection}
         />
 
         <Button className='mr-3 btn-add'

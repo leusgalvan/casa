@@ -17,13 +17,13 @@ class EditPersonModal extends Component {
 
   render() {
     return(
-      <Modal show={this.props.show} onHide={this.props.onClose}>
+      <Modal show={this.props.show} onHide={this.props.onClose} className='modal-edit'>
         <Modal.Header closeButton>
-          <Modal.Title>{this.props.title}</Modal.Title>
+          <Modal.Title className='modal-title'>{this.props.title}</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>
-          <form onSubmit={() => this.props.onSave(this.state.person)}>
+        <Modal.Body className='modal-body'>
+          <form onSubmit={(e) => this.props.onSave(this.state.person, e)}>
             <div className="form-group row">
               <label htmlFor="name" className="col-sm-2 col-form-label">Nombre</label>
               <div className="col-sm">
@@ -35,7 +35,7 @@ class EditPersonModal extends Component {
                        placeholder="Juanita Viale" />
               </div>
             </div>
-            <button type="submit" className="btn btn-primary">Guardar</button>
+            <button type="submit" className="btn btn-primary btn-save">Guardar</button>
           </form>
         </Modal.Body>
       </Modal>
