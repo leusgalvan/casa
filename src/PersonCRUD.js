@@ -114,7 +114,8 @@ class PersonCRUD extends Component {
     this.setState({updating: false});
   }
 
-  updatePerson(personData) {
+  updatePerson(personData, e) {
+    e.preventDefault()
     const _this = this
     _this.personService.update(personData)
       .then(function(){
