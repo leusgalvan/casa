@@ -4,18 +4,18 @@ import Button from 'react-bootstrap/Button';
 
 const DeleteModal = ({show, onClose, onAccept, title}) => {
   return(
-    <Modal show={show} onHide={onClose}>
+    <Modal show={show} onHide={onClose} className='delete-modal'>
       <Modal.Header closeButton>
-        <Modal.Title>{title}</Modal.Title>
+        <Modal.Title className='delete-modal-title'>{title}</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
+      <Modal.Body className='delete-modal-body'>
         <p>¿Desea eliminar los elementos seleccionados?</p>
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="primary" onClick={onAccept}>Eliminar</Button>
-        <Button variant="secondary" onClick={onClose}>Cancelar</Button>
+        <Button variant="primary" onClick={(e) => onAccept(e)} className='delete-modal-btn-delete'>Eliminar</Button>
+        <Button variant="secondary" onClick={onClose} className='delete-modal-btn-cancel'>Cancelar</Button>
       </Modal.Footer>
     </Modal>
   );

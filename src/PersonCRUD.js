@@ -59,8 +59,8 @@ class PersonCRUD extends Component {
   }
 
   createPerson(personData, e) {
-    const _this = this
     e.preventDefault()
+    const _this = this
     _this.personService.create(personData)
       .then(function(newPersonData){
         console.log('Person created successfully');
@@ -84,7 +84,8 @@ class PersonCRUD extends Component {
     this.setState({selectedRows: _selectedRows});
   }
 
-  deletePerson() {
+  deletePerson(e) {
+    e.preventDefault()
     const _this = this;
     const ids = _this.state.selectedRows.map(i => _this.state.personData[i].id);
     const promises = ids.map(id => {
