@@ -35,7 +35,11 @@ class EditPersonModal extends Component {
                        placeholder="Juanita Viale" />
               </div>
             </div>
-            <button type="submit" className="btn btn-primary edit-modal-btn-save">Guardar</button>
+            <button type="submit"
+                    className="btn btn-primary edit-modal-btn-save mr-3">Guardar</button>
+            <button type="button"
+                    className="btn btn-secondary edit-modal-btn-cancel"
+                    onClick={this.props.onClose}>Cancelar</button>
           </form>
         </Modal.Body>
       </Modal>
