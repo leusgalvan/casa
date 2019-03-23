@@ -5,7 +5,7 @@ describe('Person page', function () {
     cy.visit('/#/person')
   })
 
-  it("should have a table with the correct header, data and buttons", function () {
+  it.skip("should have a table with the correct header, data and buttons", function () {
     // Header
     cy.get('thead tr th:nth-child(1)').should('contain', 'ID')
     cy.get('thead tr th:nth-child(2)').should('contain', 'Nombre')
@@ -29,7 +29,7 @@ describe('Person page', function () {
     cy.get('.btn-delete').should('contain', 'Eliminar').and('have.attr', 'disabled')
   })
 
-  it("should add a person successfully", function () {
+  it.skip("should add a person successfully", function () {
     const personData = {'id': 6, 'name': 'Mamu'}
     cy.route('POST', '/people', personData)
     cy.get('.btn-add').click()
@@ -39,6 +39,7 @@ describe('Person page', function () {
     cy.get('.edit-modal-btn-save').should('contain', 'Guardar')
     cy.get('#name').type('Mamu')
     cy.get('.edit-modal-btn-save').click()
+    cy.get('.edit-modal').should('not.be.visible')
     cy.get('tbody').children().should('have.length', 6)
     cy.get('tbody tr:nth-child(1) td:nth-child(1)').should('contain', '4')
     cy.get('tbody tr:nth-child(1) td:nth-child(2)').should('contain', 'Papu')
@@ -54,7 +55,27 @@ describe('Person page', function () {
     cy.get('tbody tr:nth-child(6) td:nth-child(2)').should('contain', 'Mamu')
   })
 
-  it("should delete a person successfully", function () {
+  it.skip("should leave table as is when adding a person fails", function () {
+    cy.route({method: 'POST', url: '/people', status: 500})
+    cy.get('.btn-add').click()
+    cy.get('.edit-modal').should('be.visible')
+    cy.get('#name').type('Mamu')
+    cy.get('.edit-modal-btn-save').click()
+    cy.get('.edit-modal').should('not.be.visible')
+    cy.get('tbody').children().should('have.length', 5)
+    cy.get('tbody tr:nth-child(1) td:nth-child(1)').should('contain', '4')
+    cy.get('tbody tr:nth-child(1) td:nth-child(2)').should('contain', 'Papu')
+    cy.get('tbody tr:nth-child(2) td:nth-child(1)').should('contain', '5')
+    cy.get('tbody tr:nth-child(2) td:nth-child(2)').should('contain', 'Nono')
+    cy.get('tbody tr:nth-child(3) td:nth-child(1)').should('contain', '1')
+    cy.get('tbody tr:nth-child(3) td:nth-child(2)').should('contain', 'Leo')
+    cy.get('tbody tr:nth-child(4) td:nth-child(1)').should('contain', '3')
+    cy.get('tbody tr:nth-child(4) td:nth-child(2)').should('contain', 'Ile')
+    cy.get('tbody tr:nth-child(5) td:nth-child(1)').should('contain', '2')
+    cy.get('tbody tr:nth-child(5) td:nth-child(2)').should('contain', 'Masi')
+  })
+
+  it.skip("should delete a person successfully", function () {
     cy.route('DELETE', '/people/1', 1)
     cy.get('tbody tr:nth-child(3)').click()
     cy.get('.btn-delete').click()
@@ -64,6 +85,7 @@ describe('Person page', function () {
     cy.get('.delete-modal-btn-delete').should('contain', 'Eliminar')
     cy.get('.delete-modal-btn-cancel').should('contain', 'Cancelar')
     cy.get('.delete-modal-btn-delete').click()
+    cy.get('.delete-modal').should('not.be.visible')
     cy.get('tbody').children().should('have.length', 4)
     cy.get('tbody tr:nth-child(1) td:nth-child(1)').should('contain', '4')
     cy.get('tbody tr:nth-child(1) td:nth-child(2)').should('contain', 'Papu')
@@ -75,7 +97,7 @@ describe('Person page', function () {
     cy.get('tbody tr:nth-child(4) td:nth-child(2)').should('contain', 'Masi')
   })
 
-  it("should delete more than one person successfully", function () {
+  it.skip("should delete more than one person successfully", function () {
     cy.route('DELETE', '/people/1', 1)
     cy.route('DELETE', '/people/2', 2)
     cy.get('tbody tr:nth-child(3)').click()
@@ -87,6 +109,7 @@ describe('Person page', function () {
     cy.get('.delete-modal-btn-delete').should('contain', 'Eliminar')
     cy.get('.delete-modal-btn-cancel').should('contain', 'Cancelar')
     cy.get('.delete-modal-btn-delete').click()
+    cy.get('.delete-modal').should('not.be.visible')
     cy.get('tbody').children().should('have.length', 3)
     cy.get('tbody tr:nth-child(1) td:nth-child(1)').should('contain', '4')
     cy.get('tbody tr:nth-child(1) td:nth-child(2)').should('contain', 'Papu')
@@ -96,7 +119,27 @@ describe('Person page', function () {
     cy.get('tbody tr:nth-child(3) td:nth-child(2)').should('contain', 'Ile')
   })
 
-  it("should update a person successfully", function () {
+  it.skip("should leave table as is when deleting a person fails", function () {
+    cy.route({method: 'DELETE', url: '/people/1', status: 500})
+    cy.get('tbody tr:nth-child(3)').click()
+    cy.get('.btn-delete').click()
+    cy.get('.delete-modal').should('be.visible')
+    cy.get('.delete-modal-btn-delete').click()
+    cy.get('.delete-modal').should('not.be.visible')
+    cy.get('tbody').children().should('have.length', 5)
+    cy.get('tbody tr:nth-child(1) td:nth-child(1)').should('contain', '4')
+    cy.get('tbody tr:nth-child(1) td:nth-child(2)').should('contain', 'Papu')
+    cy.get('tbody tr:nth-child(2) td:nth-child(1)').should('contain', '5')
+    cy.get('tbody tr:nth-child(2) td:nth-child(2)').should('contain', 'Nono')
+    cy.get('tbody tr:nth-child(3) td:nth-child(1)').should('contain', '1')
+    cy.get('tbody tr:nth-child(3) td:nth-child(2)').should('contain', 'Leo')
+    cy.get('tbody tr:nth-child(4) td:nth-child(1)').should('contain', '3')
+    cy.get('tbody tr:nth-child(4) td:nth-child(2)').should('contain', 'Ile')
+    cy.get('tbody tr:nth-child(5) td:nth-child(1)').should('contain', '2')
+    cy.get('tbody tr:nth-child(5) td:nth-child(2)').should('contain', 'Masi')
+  })
+
+  it.skip("should update a person successfully", function () {
     const personData = {'id': 1, 'name': 'Leo cambiado'}
     cy.route('PUT', '/people/1', personData)
     cy.get('tbody tr:nth-child(3)').click()
@@ -107,6 +150,7 @@ describe('Person page', function () {
     cy.get('.edit-modal-btn-save').should('contain', 'Guardar')
     cy.get('#name').clear().type('Leo cambiado')
     cy.get('.edit-modal-btn-save').click()
+    cy.get('.edit-modal').should('not.be.visible')
     cy.get('tbody').children().should('have.length', 5)
     cy.get('tbody').children().should('have.length', 5)
     cy.get('tbody tr:nth-child(1) td:nth-child(1)').should('contain', '4')
@@ -115,6 +159,27 @@ describe('Person page', function () {
     cy.get('tbody tr:nth-child(2) td:nth-child(2)').should('contain', 'Nono')
     cy.get('tbody tr:nth-child(3) td:nth-child(1)').should('contain', '1')
     cy.get('tbody tr:nth-child(3) td:nth-child(2)').should('contain', 'Leo cambiado')
+    cy.get('tbody tr:nth-child(4) td:nth-child(1)').should('contain', '3')
+    cy.get('tbody tr:nth-child(4) td:nth-child(2)').should('contain', 'Ile')
+    cy.get('tbody tr:nth-child(5) td:nth-child(1)').should('contain', '2')
+    cy.get('tbody tr:nth-child(5) td:nth-child(2)').should('contain', 'Masi')
+  })
+
+  it("should leave table as is when updating a person fails", function () {
+    cy.route({method: 'PUT', url: '/people/1', status: 500})
+    cy.get('tbody tr:nth-child(3)').click()
+    cy.get('.btn-edit').click()
+    cy.get('.edit-modal').should('be.visible')
+    cy.get('#name').clear().type('Leo cambiado')
+    cy.get('.edit-modal-btn-save').click()
+    cy.get('.edit-modal').should('not.be.visible')
+    cy.get('tbody').children().should('have.length', 5)
+    cy.get('tbody tr:nth-child(1) td:nth-child(1)').should('contain', '4')
+    cy.get('tbody tr:nth-child(1) td:nth-child(2)').should('contain', 'Papu')
+    cy.get('tbody tr:nth-child(2) td:nth-child(1)').should('contain', '5')
+    cy.get('tbody tr:nth-child(2) td:nth-child(2)').should('contain', 'Nono')
+    cy.get('tbody tr:nth-child(3) td:nth-child(1)').should('contain', '1')
+    cy.get('tbody tr:nth-child(3) td:nth-child(2)').should('contain', 'Leo')
     cy.get('tbody tr:nth-child(4) td:nth-child(1)').should('contain', '3')
     cy.get('tbody tr:nth-child(4) td:nth-child(2)').should('contain', 'Ile')
     cy.get('tbody tr:nth-child(5) td:nth-child(1)').should('contain', '2')

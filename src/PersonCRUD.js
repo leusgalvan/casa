@@ -129,6 +129,7 @@ class PersonCRUD extends Component {
         });
       }).catch(function(error){
         console.log('Error updating person: ' + error);
+        _this.setState({updating: false})
       });
   }
 
