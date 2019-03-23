@@ -6,7 +6,7 @@ import {
   NavLink,
   HashRouter
 } from "react-router-dom";
-import PersonCRUD from './PersonCRUD';
+import Person from './Person';
 import Spending from './Spending';
 import Summary from './Summary';
 import Home from './Home';
@@ -15,7 +15,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <nav className="navbar navbar-expand-sm bg-primary navbar-dark">
+        <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
           <a className="navbar-brand" href="/">Casa</a>
         </nav>
         <HashRouter>
@@ -41,7 +41,7 @@ class Main extends Component {
             </nav>
             <div className="content col-md">
               <Route exact path="/" component={Home}/>
-              <Route path="/person" component={PersonCRUD}/>
+              <Route path="/person" component={Person}/>
               <Route path="/spending" component={Spending}/>
               <Route path="/summary" component={Summary}/>
             </div>

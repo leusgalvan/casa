@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
 import PersonService from './PersonService';
-import './PersonCRUD.css';
+import './Person.css';
 import FormTable from './components/FormTable';
-import EditPersonModal from './EditPersonModal';
-import DeleteModal from './DeleteModal';
+import EditPersonModal from './components/EditPersonModal';
+import DeleteModal from './components/DeleteModal';
 import Button from 'react-bootstrap/Button';
 
-class PersonCRUD extends Component {
+class Person extends Component {
   constructor(props) {
     super(props);
-    console.log('Creating PersonCRUD component')
+    console.log('Creating Person component')
     this.state = {
       adding: false,
       deleting: false,
@@ -193,4 +193,4 @@ class PersonCRUD extends Component {
   }
 }
 
-export default PersonCRUD;
+export default Person;
