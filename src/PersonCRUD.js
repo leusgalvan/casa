@@ -166,15 +166,16 @@ class PersonCRUD extends Component {
                    onRowClicked={this.selectRow}
         />
 
-        <Button className='mr-3'
+        <Button className='mr-3 btn-add'
                 onClick={this.enterAddingMode}>Agregar</Button>
 
-        <Button className='mr-3'
+        <Button className='mr-3 btn-edit'
                 onClick={this.enterUpdatingMode}
                 disabled={this.state.selectedRows.length !== 1}
                 variant="info">Editar</Button>
 
-        <Button onClick={this.enterDeletingMode}
+        <Button className='btn-delete'
+                onClick={this.enterDeletingMode}
                 disabled={!this.state.selectedRows.length}
                 variant="secondary">Eliminar</Button>
 
