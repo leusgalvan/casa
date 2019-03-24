@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import PersonService from './PersonService';
+import PersonService from './services/PersonService';
 import './Person.css';
 import FormTable from './components/FormTable';
 import EditPersonModal from './components/EditPersonModal';
